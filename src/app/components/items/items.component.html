@@ -1,0 +1,86 @@
+<div class="items-container">
+  <h2>Lost Items Management</h2>
+
+  <!-- Add New Item Form -->
+  <div class="form-section">
+    <h3>Add New Lost Item</h3>
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="item-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="itemName">Item Name:</label>
+          <input 
+            type="text" 
+            id="itemName" 
+            formControlName="itemName" 
+            placeholder="e.g., laptop, phone, keys"
+            [class.error]="itemForm.get('itemName')?.invalid && itemForm.get('itemName')?.touched">
+          <div *ngIf="itemForm.get('itemName')?.invalid && itemForm.get('itemName')?.touched" class="error-msg">
+            Item name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input 
+            type="number" 
+            id="quantity" 
+            formControlName="quantity" 
+            placeholder="1"
+            min="1"
+            [class.error]="itemForm.get('quantity')?.invalid && itemForm.get('quantity')?.touched">
+          <div *ngIf="itemForm.get('quantity')?.invalid && itemForm.get('quantity')?.touched" class="error-msg">
+            Quantity must be at least 1
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="place">Place:</label>
+          <input 
+            type="text" 
+            id="place" 
+            formControlName="place" 
+            placeholder="e.g., amsterdam, library, cafeteria"
+            [class.error]="itemForm.get('place')?.invalid && itemForm.get('place')?.touched">
+          <div *ngIf="itemForm.get('place')?.invalid && itemForm.get('place')?.touched" class="error-msg">
+            Place is required
+          </div>
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="itemForm.invalid || submitting"
+        class="submit-btn">
+        {{ submitting ? 'Adding...' : 'Add Item' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Error Display -->
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <!-- Items List -->
+  <div class="items-section">
+    <div class="section-header">
+      <h3>Lost Items</h3>
+      <button (click)="loadItems()" class="refresh-btn">Refresh</button>
+    </div>
+
+    <div *ngIf="loading" class="loading">Loading items...</div>
+    
+    <div *ngIf="!loading && items.length === 0" class="no-data">
+      No lost items found. Add some items or make sure your API is running on localhost:8080
+    </div>
+    
+    <div *ngIf="!loading && items.length > 0" class="items-grid">
+      <div *ngFor="let item of items" class="item-card">
+        <h4>{{ item.itemName }}</h4>
+        <div class="item-details">
+          <p><strong>ID:</strong> {{ item.id }}</p>
+          <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+          <p><strong>Place:</strong> {{ item.place }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

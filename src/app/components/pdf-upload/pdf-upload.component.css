@@ -1,0 +1,168 @@
+.pdf-upload-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.upload-section {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
+}
+
+.upload-section h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.upload-info {
+  color: #666;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.file-input-section {
+  margin-bottom: 30px;
+}
+
+.file-input-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.file-input-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.file-input-label:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+}
+
+.file-icon {
+  font-size: 20px;
+}
+
+.file-details {
+  background-color: white;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  margin-top: 15px;
+}
+
+.file-details h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.file-details p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.file-details strong {
+  color: #333;
+}
+
+.upload-actions {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.upload-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(40,167,69,0.3);
+}
+
+.upload-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.auth-info {
+  background-color: #e9ecef;
+  padding: 20px;
+  border-radius: 6px;
+  margin-top: 30px;
+}
+
+.auth-info h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #495057;
+}
+
+.auth-info p {
+  margin: 8px 0;
+  color: #6c757d;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.auth-info strong {
+  color: #495057;
+  font-family: inherit;
+}

@@ -1,0 +1,58 @@
+<div class="pdf-upload-container">
+  <h2>PDF Document Upload</h2>
+
+  <div class="upload-section">
+    <h3>Upload PDF File</h3>
+    <p class="upload-info">Upload a PDF document with Bearer token authentication</p>
+
+    <div class="file-input-section">
+      <div class="file-input-wrapper">
+        <input
+          type="file"
+          id="pdfFile"
+          accept=".pdf"
+          (change)="onFileSelected($event)"
+          class="file-input"
+        />
+        <label for="pdfFile" class="file-input-label">
+          <span class="file-icon">📄</span>
+          Choose PDF File
+        </label>
+      </div>
+
+      <div *ngIf="selectedFile" class="file-details">
+        <h4>Selected File:</h4>
+        <p><strong>Name:</strong> {{ selectedFile.name }}</p>
+        <p><strong>Size:</strong> {{ formatFileSize(selectedFile.size) }}</p>
+        <p><strong>Type:</strong> {{ selectedFile.type }}</p>
+      </div>
+    </div>
+
+    <div class="upload-actions">
+      <button
+        (click)="onUpload()"
+        [disabled]="!selectedFile || uploading"
+        class="upload-btn"
+      >
+        {{ uploading ? 'Uploading...' : 'Upload PDF' }}
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <div *ngIf="success" class="success-message">
+      {{ success }}
+    </div>
+
+    <!-- Upload Info -->
+    <div class="auth-info">
+      <h4>Authentication Info:</h4>
+      <p><strong>Authorization Header:</strong> Bearer Test</p>
+      <p><strong>Endpoint:</strong> POST /api/pdf</p>
+      <p><strong>Content-Type:</strong> multipart/form-data</p>
+    </div>
+  </div>
+</div>

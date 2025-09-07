@@ -1,0 +1,133 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img
+    width="40"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+  <span>Angular Java API Demo</span>
+  <div class="spacer"></div>
+</div>
+
+<div class="content" role="main">
+  <h1>Lost & Found System</h1>
+  <p>Manage lost items, claims, users, and document uploads through your Java REST API</p>
+  
+  <div class="navigation-tabs">
+    <button 
+      *ngFor="let tab of tabs; let i = index"
+      (click)="activeTab = i"
+      [class.active]="activeTab === i"
+      class="nav-tab">
+      {{ tab.label }}
+    </button>
+  </div>
+
+  <div class="tab-content">
+    <app-items *ngIf="activeTab === 0"></app-items>
+    <app-claims *ngIf="activeTab === 1"></app-claims>
+    <app-user-list *ngIf="activeTab === 2"></app-user-list>
+    <app-pdf-upload *ngIf="activeTab === 3"></app-pdf-upload>
+  </div>
+</div>
+
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0 0 16px 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+    padding: 0 16px;
+  }
+
+  .toolbar img {
+    margin-right: 16px;
+  }
+
+  .content {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 1200px;
+    flex-direction: column;
+  }
+
+  .navigation-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 30px 0 20px 0;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+  }
+
+  .nav-tab {
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6c757d;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-tab:hover {
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+
+  .nav-tab.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+  }
+
+  .nav-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #007bff;
+  }
+
+  .tab-content {
+    min-height: 400px;
+    padding: 20px 0;
+  }
+</style>
+
+<router-outlet></router-outlet>

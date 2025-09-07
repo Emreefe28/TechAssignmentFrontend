@@ -1,0 +1,95 @@
+<div class="claims-container">
+  <h2>Claims Management</h2>
+
+  <!-- Add New Claim Form -->
+  <div class="form-section">
+    <h3>Create New Claim</h3>
+    <form [formGroup]="claimForm" (ngSubmit)="onSubmit()" class="claim-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userId">User:</label>
+          <select 
+            id="userId" 
+            formControlName="userId"
+            [class.error]="claimForm.get('userId')?.invalid && claimForm.get('userId')?.touched">
+            <option value="">Select a user</option>
+            <option *ngFor="let user of users" [value]="user.id">
+              {{ getUserName(user.id) }} (ID: {{ user.id }})
+            </option>
+          </select>
+          <div *ngIf="claimForm.get('userId')?.invalid && claimForm.get('userId')?.touched" class="error-msg">
+            User selection is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lostItemId">Lost Item:</label>
+          <select 
+            id="lostItemId" 
+            formControlName="lostItemId"
+            [class.error]="claimForm.get('lostItemId')?.invalid && claimForm.get('lostItemId')?.touched">
+            <option value="">Select an item</option>
+            <option *ngFor="let item of items" [value]="item.id">
+              {{ item.itemName }} - {{ item.place }} (Available: {{ item.quantity }})
+            </option>
+          </select>
+          <div *ngIf="claimForm.get('lostItemId')?.invalid && claimForm.get('lostItemId')?.touched" class="error-msg">
+            Item selection is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="claimedQuantity">Claimed Quantity:</label>
+          <input 
+            type="number" 
+            id="claimedQuantity" 
+            formControlName="claimedQuantity" 
+            placeholder="1"
+            min="1"
+            [class.error]="claimForm.get('claimedQuantity')?.invalid && claimForm.get('claimedQuantity')?.touched">
+          <div *ngIf="claimForm.get('claimedQuantity')?.invalid && claimForm.get('claimedQuantity')?.touched" class="error-msg">
+            Claimed quantity must be at least 1
+          </div>
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="claimForm.invalid || submitting"
+        class="submit-btn">
+        {{ submitting ? 'Creating Claim...' : 'Create Claim' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Error Display -->
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <!-- Claims List -->
+  <div class="claims-section">
+    <div class="section-header">
+      <h3>Claims</h3>
+      <button (click)="loadClaims()" class="refresh-btn">Refresh</button>
+    </div>
+
+    <div *ngIf="loading" class="loading">Loading claims...</div>
+    
+    <div *ngIf="!loading && claims.length === 0" class="no-data">
+      No claims found. Create some claims or make sure your API is running on localhost:8080
+    </div>
+    
+    <div *ngIf="!loading && claims.length > 0" class="claims-grid">
+      <div *ngFor="let claim of claims" class="claim-card">
+        <h4>Claim #{{ claim.id || 'New' }}</h4>
+        <div class="claim-details">
+          <p><strong>User:</strong> {{ getUserName(claim.userId) }}</p>
+          <p><strong>Item:</strong> {{ getItemDetails(claim.lostItemId) }}</p>
+          <p><strong>Claimed Quantity:</strong> {{ claim.claimedQuantity }}</p>
+          <p><strong>Claim Date:</strong> {{ claim.claimDate | date:'medium' }}</p>
+          <p><strong>User ID:</strong> {{ claim.userId }}</p>
+          <p><strong>Item ID:</strong> {{ getItemId(claim.lostItemId) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

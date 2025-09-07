@@ -1,0 +1,22 @@
+<div class="user-list-container">
+  <h2>Users</h2>
+  
+  <button (click)="loadUsers()" class="refresh-btn">Refresh Users</button>
+  
+  <div *ngIf="loading" class="loading">Loading users...</div>
+  
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div *ngIf="!loading && users.length === 0" class="no-data">
+    No users found. Make sure your Java API is running on localhost:8080
+  </div>
+  
+  <div *ngIf="!loading && users.length > 0" class="users-grid">
+    <div *ngFor="let user of users" class="user-card">
+      <h3>{{ user.name || user.email || 'User ' + user.id }}</h3>
+      <p><strong>ID:</strong> {{ user.id }}</p>
+      <p *ngIf="user.name"><strong>Name:</strong> {{ user.name }}</p>
+      <p *ngIf="user.email"><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+  </div>
+</div>
