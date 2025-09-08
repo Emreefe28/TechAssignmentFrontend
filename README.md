@@ -13,6 +13,8 @@ A simple Angular application that demonstrates making API calls to a dockerized 
 1. **Install dependencies:**
    ```bash
    npm install
+   
+   npm install -g @angular/cli@latest
    ```
 
 2. **Start your dockerized Java API** on `localhost:8080`
