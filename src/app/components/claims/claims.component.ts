@@ -31,6 +31,39 @@ export class ClaimsComponent implements OnInit {
     this.loadClaims();
     this.loadItems();
     this.loadUsers();
+    this.setupQuantityValidator();
+  }
+
+  setupQuantityValidator(): void {
+    this.claimForm.get('lostItemId')?.valueChanges.subscribe(() => {
+      this.updateQuantityValidator();
+    });
+  }
+
+  updateQuantityValidator(): void {
+    const selectedItemId = this.claimForm.get('lostItemId')?.value;
+    const quantityControl = this.claimForm.get('claimedQuantity');
+    
+    if (selectedItemId && quantityControl) {
+      const selectedItem = this.items.find(item => item.id == selectedItemId);
+      if (selectedItem) {
+        quantityControl.setValidators([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(selectedItem.quantity)
+        ]);
+        quantityControl.updateValueAndValidity();
+      }
+    }
+  }
+
+  getSelectedItemQuantity(): number {
+    const selectedItemId = this.claimForm.get('lostItemId')?.value;
+    if (selectedItemId) {
+      const selectedItem = this.items.find(item => item.id == selectedItemId);
+      return selectedItem ? selectedItem.quantity : 0;
+    }
+    return 0;
   }
 
   loadClaims(): void {
@@ -90,7 +123,7 @@ export class ClaimsComponent implements OnInit {
           this.submitting = false;
         },
         error: (err) => {
-          this.error = 'Failed to create claim: ' + err.message;
+          this.error = this.parseErrorMessage(err);
           this.submitting = false;
           console.error('Error creating claim:', err);
         }
@@ -144,5 +177,24 @@ getItemId(lostItemId: number | LostItem): number {
       return (lostItemId as LostItem).status || 'Unknown';
     }
     return 'Unknown';
+  }
+
+  parseErrorMessage(err: any): string {
+    if (err.error && typeof err.error === 'string') {
+      if (err.error.includes('Not enough quantity available')) {
+        return `Error claiming item: ${err.error}`;
+      }
+      return `Failed to create claim: ${err.error}`;
+    }
+    
+    if (err.error && err.error.message) {
+      return `Failed to create claim: ${err.error.message}`;
+    }
+    
+    if (err.message) {
+      return `Failed to create claim: ${err.message}`;
+    }
+    
+    return 'Failed to create claim: Unknown error occurred';
   }
 }

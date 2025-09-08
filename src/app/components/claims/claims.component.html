@@ -46,9 +46,15 @@
             formControlName="claimedQuantity" 
             placeholder="1"
             min="1"
+            [max]="getSelectedItemQuantity()"
             [class.error]="claimForm.get('claimedQuantity')?.invalid && claimForm.get('claimedQuantity')?.touched">
+          <div *ngIf="getSelectedItemQuantity() > 0" class="quantity-info">
+            Available: {{ getSelectedItemQuantity() }}
+          </div>
           <div *ngIf="claimForm.get('claimedQuantity')?.invalid && claimForm.get('claimedQuantity')?.touched" class="error-msg">
-            Claimed quantity must be at least 1
+            <span *ngIf="claimForm.get('claimedQuantity')?.errors?.['required']">Claimed quantity is required</span>
+            <span *ngIf="claimForm.get('claimedQuantity')?.errors?.['min']">Claimed quantity must be at least 1</span>
+            <span *ngIf="claimForm.get('claimedQuantity')?.errors?.['max']">Cannot claim more than {{ getSelectedItemQuantity() }} available</span>
           </div>
         </div>
       </div>

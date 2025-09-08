@@ -181,3 +181,10 @@
 .claim-details strong {
   color: #333;
 }
+
+.quantity-info {
+  color: #28a745;
+  font-size: 12px;
+  margin-top: 3px;
+  font-weight: 500;
+}
